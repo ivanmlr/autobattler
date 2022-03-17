@@ -3,7 +3,7 @@ class clsFollow{
         this.verbose=0;
         this.pt = new clsPoint(0,0,0,0)
         this._velocity=0;//Math.random()*5;
-        this.friction=-0.01;
+        this.friction=0;
         this.rotationFriction=-0.001
         this._velomax=20;
         this._rotation=0;
@@ -12,10 +12,11 @@ class clsFollow{
         this.spin_velo=0;
         this._velo_x=0;
         this._velo_y=0;
+        this.reverse=0;
 
-
+        this.wall = 0;
         this.yfloor=999999;
-
+        this.xfloor = 99999;
         this.gravity=0;
     }
     ///////////////////////////////////////////////
@@ -32,13 +33,16 @@ class clsFollow{
     ////////////////////////////////////////////////
     increaseVelocity(){
         //console.log('Velocitiy Increase');
-        this.setVelocity(this._velocity+1);
+        this.pt.x+=5;
     }
     decreaseVelocity(){
-        this.setVelocity(this._velocity-1);
+        this.pt.x-=5;
     }
-    displaceLeft(){
-        
+    displaceUp(){
+        this.pt.y+=5;
+    }
+    displaceDown(){
+        this.pt.y-=5;
     }
     ////////////////////////////////////////////////
     rotateRight(){
@@ -71,21 +75,30 @@ class clsFollow{
     ///////////////////////////////////////////////
     Move(){
         //console.log('pt.rot='+this.pt.rotation);
-        if (this.IsOutsideX()==true){
-            //console.log('fuerraaaaa');
+        if(this.wall == 0){
+            if (this.IsOutsideX()==true){
+                //console.log('fuerraaaaa');
+            }
+            if (this.IsOutsideY()==true){
+                //console.log('fuerraaaaa');
+            }
         }
-        if (this.IsOutsideY()==true){
-            //console.log('fuerraaaaa');
-        }
-
         this.setVelocity(this._velocity + this.friction);
         this.setRotation();
+        if(this.reverse == 0){
+            this.pt.x=this.pt.x+this._velo_x;
+        }
+        else{
+            this.pt.x=this.pt.x-this._velo_x;
+        }
 
-        this.pt.x=this.pt.x+this._velo_x;
         this.pt.y=this.pt.y+this._velo_y;//+ this.gravity;
 
         if (this.pt.y>this.yfloor){
             this.pt.y=this.yfloor;
+        }
+        if (this.pt.x>this.xfloor){
+            this.pt.x=this.xfloor;
         }
 
         this.pt.rotation=this._rotation;

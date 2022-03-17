@@ -6,7 +6,7 @@ class clsBattleground{
 
         this.cells=[];
         this.InitBground();
-        this.hola=1;
+        
     }
 
     InitBground(){

@@ -38,8 +38,8 @@ function GetMousePos(px,py){
     var rect =  GetCanvasRect();  
     var x = px - rect.left;              
     var y = py - rect.top;
-    var xf= 800/rect.width;
-    var yf= 600/rect.height;
+    var xf= 1000/rect.width;
+    var yf= 520/rect.height;
     var t = x*xf + " / " + y*yf;
     return {x: x*xf, y: y*yf};
 }
@@ -54,6 +54,6 @@ window.onload= function(){
         mGame= new clsAutoBattler(window,this.document);
         mUtils= new clsUtils()
     }
-  
+
 }
 
